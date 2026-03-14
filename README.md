@@ -1,4 +1,5 @@
-# ��� RAG-based PDF Q&A
+cat > README.md << 'EOF'
+# 📄 RAG-based PDF Q&A
 
 Ask natural language questions about any PDF using a local embedding model and Groq as the LLM. No paid embeddings API required.
 
@@ -50,3 +51,4 @@ rag-pdf-qa/
 ├── requirements.txt
 └── .gitignore
 ```
+EOF
