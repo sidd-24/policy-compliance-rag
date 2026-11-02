@@ -1,63 +1,89 @@
+import os
+from pathlib import Path
+
 import streamlit as st
 from rag.loader import load_and_chunk
 from rag.embeddings import build_vectorstore
-from rag.chain import build_rag_chain, ask
+from rag.chain import answer_question, build_llm
+
+SAMPLE_DIR = Path("data/policies")
 
 
 st.set_page_config(
-    page_title="PDF Q&A",
+    page_title="Policy Q&A",
     page_icon="📄",
     layout="centered",
 )
 
-st.title("📄 PDF Q&A")
-st.caption("Upload a PDF and ask anything about it. Powered by Groq + LangChain.")
+st.title("📄 Policy & Compliance Q&A")
+st.caption("Ask questions about your policies. Every answer cites document, page and section, "
+           "or says it is not covered.")
 
 with st.sidebar:
     st.header("⚙️ Configuration")
     api_key = st.text_input(
         "Groq API Key",
         type="password",
-        placeholder="gsk_...",
+        placeholder="gsk_... (or set GROQ_API_KEY)",
         help="Get a free key at console.groq.com",
-    )
+    ) or os.getenv("GROQ_API_KEY", "")
     model = st.selectbox(
         "Model",
-        ["llama-3.3-70b-versatile", "llama-3.1-8b-instant", "mixtral-8x7b-32768"],
+        ["openai/gpt-oss-120b", "openai/gpt-oss-20b", "qwen/qwen3.8-27b"],
         index=0,
     )
     st.markdown("---")
     st.markdown("**How it works**")
     st.markdown(
-        "1. Upload your PDF\n"
-        "2. PDF is split into chunks\n"
-        "3. Chunks are embedded locally\n"
-        "4. Your question retrieves relevant chunks\n"
-        "5. Groq LLM generates the answer"
+        "1. PDFs are split by section\n"
+        "2. Chunks are embedded locally\n"
+        "3. Your question retrieves the most relevant sections\n"
+        "4. If nothing is relevant enough, it refuses\n"
+        "5. Otherwise Groq answers from the sources, with citations"
     )
 
-uploaded_file = st.file_uploader("Upload a PDF", type=["pdf"])
+use_samples = st.toggle("Use the sample policies (fictional company)", value=True)
+uploaded_files = st.file_uploader("Or upload your own PDFs", type=["pdf"], accept_multiple_files=True)
 
-if uploaded_file and api_key:
-    file_key = uploaded_file.name + str(uploaded_file.size)
+if uploaded_files:
+    documents = [(f.name, f) for f in uploaded_files]
+elif use_samples:
+    documents = [(p.name, p) for p in sorted(SAMPLE_DIR.glob("*.pdf"))]
+else:
+    documents = []
 
-    if st.session_state.get("file_key") != file_key:
-        with st.spinner("Reading and indexing your PDF..."):
-            chunks = load_and_chunk(uploaded_file)
-            vectorstore = build_vectorstore(chunks)
-            chain = build_rag_chain(vectorstore, api_key, model)
+if documents and api_key:
+    index_key = tuple((name, getattr(doc, "size", None)) for name, doc in documents)
 
-            st.session_state["chain"] = chain
-            st.session_state["file_key"] = file_key
+    if st.session_state.get("index_key") != index_key:
+        with st.spinner("Reading and indexing the documents..."):
+            chunks = [c for name, doc in documents for c in load_and_chunk(doc, name=name)]
+            st.session_state["vectorstore"] = build_vectorstore(chunks)
+            st.session_state["index_key"] = index_key
             st.session_state["chat_history"] = []
             st.session_state["chunk_count"] = len(chunks)
 
-        st.success(f"✅ Ready — {st.session_state['chunk_count']} chunks indexed.")
+        st.success(f"✅ Ready: {len(documents)} document(s), {st.session_state['chunk_count']} chunks indexed.")
 
-elif uploaded_file and not api_key:
-    st.warning("Please enter your Groq API key in the sidebar to continue.")
+elif documents and not api_key:
+    st.warning("Please enter your Groq API key in the sidebar or set GROQ_API_KEY.")
 
-if "chain" in st.session_state:
+
+def show_result(result):
+    if result["status"] == "refused":
+        st.info(result["answer"])
+        st.caption(result["reason"])
+        return
+    st.write(result["answer"])
+    if result["status"] == "uncited":
+        st.warning(result["reason"])
+    for c in result["citations"]:
+        with st.expander(f"[{c['n']}] {c['title']}, page {c['page']}, section {c['section'] or 'n/a'}"):
+            st.markdown(f"> {c['excerpt']}")
+            st.caption(f"{c['source']} · relevance {c['score']:.2f}")
+
+
+if "vectorstore" in st.session_state and api_key:
     st.markdown("---")
     st.subheader("Ask a question")
 
@@ -65,26 +91,17 @@ if "chain" in st.session_state:
         with st.chat_message("user"):
             st.write(entry["question"])
         with st.chat_message("assistant"):
-            st.write(entry["answer"])
-            if entry["source_pages"]:
-                st.caption(f"Sources: page(s) {', '.join(map(str, entry['source_pages']))}")
+            show_result(entry["result"])
 
-    question = st.chat_input("Ask something about the document...")
+    question = st.chat_input("e.g. How quickly must critical vulnerabilities be patched?")
 
     if question:
         with st.chat_message("user"):
             st.write(question)
 
         with st.chat_message("assistant"):
-            with st.spinner("Thinking..."):
-                result = ask(st.session_state["chain"], question)
+            with st.spinner("Searching the policies..."):
+                result = answer_question(question, st.session_state["vectorstore"], build_llm(api_key, model))
+            show_result(result)
 
-            st.write(result["answer"])
-            if result["source_pages"]:
-                st.caption(f"Sources: page(s) {', '.join(map(str, result['source_pages']))}")
-
-        st.session_state["chat_history"].append({
-            "question": question,
-            "answer": result["answer"],
-            "source_pages": result["source_pages"],
-        })
+        st.session_state["chat_history"].append({"question": question, "result": result})

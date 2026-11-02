@@ -1,0 +1,518 @@
+{
+  "questions": 33,
+  "answerable": 25,
+  "top_k": 4,
+  "retrieval_fixed": {
+    "chunks": 22,
+    "questions": 25,
+    "hit_at_1": 0.96,
+    "hit_at_k": 1.0,
+    "mrr": 0.98,
+    "citation_label_at_1": 0.4
+  },
+  "retrieval_section": {
+    "chunks": 42,
+    "questions": 25,
+    "hit_at_1": 0.96,
+    "hit_at_k": 1.0,
+    "mrr": 0.98,
+    "citation_label_at_1": 0.96
+  },
+  "threshold_sweep": [
+    {
+      "threshold": 0.2,
+      "answerable_passed": 1.0,
+      "unanswerable_refused": 0.0
+    },
+    {
+      "threshold": 0.25,
+      "answerable_passed": 1.0,
+      "unanswerable_refused": 0.125
+    },
+    {
+      "threshold": 0.3,
+      "answerable_passed": 1.0,
+      "unanswerable_refused": 0.5
+    },
+    {
+      "threshold": 0.35,
+      "answerable_passed": 1.0,
+      "unanswerable_refused": 0.5
+    },
+    {
+      "threshold": 0.4,
+      "answerable_passed": 1.0,
+      "unanswerable_refused": 0.5
+    },
+    {
+      "threshold": 0.45,
+      "answerable_passed": 0.96,
+      "unanswerable_refused": 0.625
+    },
+    {
+      "threshold": 0.5,
+      "answerable_passed": 0.8,
+      "unanswerable_refused": 0.75
+    }
+  ],
+  "top_scores": {
+    "Q01": 0.64,
+    "Q02": 0.532,
+    "Q03": 0.741,
+    "Q04": 0.633,
+    "Q05": 0.513,
+    "Q06": 0.448,
+    "Q07": 0.496,
+    "Q08": 0.475,
+    "Q09": 0.581,
+    "Q10": 0.492,
+    "Q11": 0.739,
+    "Q12": 0.65,
+    "Q13": 0.746,
+    "Q14": 0.549,
+    "Q15": 0.574,
+    "Q16": 0.607,
+    "Q17": 0.539,
+    "Q18": 0.463,
+    "Q19": 0.704,
+    "Q20": 0.561,
+    "Q21": 0.722,
+    "Q22": 0.51,
+    "Q23": 0.754,
+    "Q24": 0.717,
+    "Q25": 0.625,
+    "N01": 0.28,
+    "N02": 0.25,
+    "N03": 0.258,
+    "N04": 0.214,
+    "N05": 0.541,
+    "N06": 0.496,
+    "N07": 0.511,
+    "N08": 0.435
+  },
+  "end_to_end": {
+    "model": "openai/gpt-oss-120b",
+    "answer_accuracy": 1.0,
+    "citation_accuracy": 1.0,
+    "answered_without_citation": 0,
+    "false_refusals": 0,
+    "correct_refusals": 1.0
+  },
+  "details": [
+    {
+      "id": "Q01",
+      "answerable": true,
+      "correct": true,
+      "status": "answered",
+      "cited_expected": true,
+      "question": "What is the minimum length for a password?",
+      "answer": "Passwords must have at least 14 characters [1].",
+      "top_score": 0.64,
+      "citations": [
+        "IS-01_Information_Security_Policy.pdf p.1 4. Passwords and Authentication"
+      ]
+    },
+    {
+      "id": "Q02",
+      "answerable": true,
+      "correct": true,
+      "status": "answered",
+      "cited_expected": true,
+      "question": "When do I need multi-factor authentication?",
+      "answer": "Multi\u2011factor authentication is mandatory for remote access through VPN, for email and collaboration tools when used from outside the company network, for all administrator accounts, and for all cloud services that hold company data\u30101\u3011.",
+      "top_score": 0.532,
+      "citations": [
+        "IS-01_Information_Security_Policy.pdf p.1 4. Passwords and Authentication"
+      ]
+    },
+    {
+      "id": "Q03",
+      "answerable": true,
+      "correct": true,
+      "status": "answered",
+      "cited_expected": true,
+      "question": "How quickly do critical vulnerabilities have to be patched?",
+      "answer": "Critical vulnerabilities (CVSS\u202f9.0\u202fand higher) must be patched within\u202f14\u202fdays of release [1]. If a vulnerability is known to be actively exploited, the update must be installed within\u202f72\u202fhours [1].",
+      "top_score": 0.741,
+      "citations": [
+        "IS-01_Information_Security_Policy.pdf p.2 6. Patch and Vulnerability Management"
+      ]
+    },
+    {
+      "id": "Q04",
+      "answerable": true,
+      "correct": true,
+      "status": "answered",
+      "cited_expected": true,
+      "question": "What is the deadline for a vulnerability that is actively exploited?",
+      "answer": "The update for a vulnerability that is known to be actively exploited must be installed within\u202f72\u202fhours\u202f[1].",
+      "top_score": 0.633,
+      "citations": [
+        "IS-01_Information_Security_Policy.pdf p.2 6. Patch and Vulnerability Management"
+      ]
+    },
+    {
+      "id": "Q05",
+      "answerable": true,
+      "correct": true,
+      "status": "answered",
+      "cited_expected": true,
+      "question": "How often are privileged accounts reviewed?",
+      "answer": "Privileged accounts are reviewed every\u202f3\u202fmonths\u202f[1].",
+      "top_score": 0.513,
+      "citations": [
+        "IS-01_Information_Security_Policy.pdf p.1 3. Access Control"
+      ]
+    },
+    {
+      "id": "Q06",
+      "answerable": true,
+      "correct": true,
+      "status": "answered",
+      "cited_expected": true,
+      "question": "Am I allowed to use a USB stick?",
+      "answer": "USB mass storage devices are blocked by default\u202f[1].  \nYou may use a USB stick only if you obtain a CISO\u2011approved exception for a specific business need, which can be granted for a maximum of\u202f90\u202fdays\u202f[1].",
+      "top_score": 0.448,
+      "citations": [
+        "IS-01_Information_Security_Policy.pdf p.2 5. Endpoint Security"
+      ]
+    },
+    {
+      "id": "Q07",
+      "answerable": true,
+      "correct": true,
+      "status": "answered",
+      "cited_expected": true,
+      "question": "After how many minutes does my screen lock?",
+      "answer": "The screen locks automatically after 10 minutes of inactivity [1].",
+      "top_score": 0.496,
+      "citations": [
+        "IS-01_Information_Security_Policy.pdf p.1 5. Endpoint Security"
+      ]
+    },
+    {
+      "id": "Q08",
+      "answerable": true,
+      "correct": true,
+      "status": "answered",
+      "cited_expected": true,
+      "question": "What happens if a production machine cannot be patched?",
+      "answer": "If a production machine cannot be patched, it must have documented compensating controls and an exception approved by the CISO, with the exception reviewed every\u202f6\u202fmonths [1].",
+      "top_score": 0.475,
+      "citations": [
+        "IS-01_Information_Security_Policy.pdf p.2 6. Patch and Vulnerability Management"
+      ]
+    },
+    {
+      "id": "Q09",
+      "answerable": true,
+      "correct": true,
+      "status": "answered",
+      "cited_expected": true,
+      "question": "How often do we test restoring from backup?",
+      "answer": "Restoring from backup is tested every quarter [1].",
+      "top_score": 0.581,
+      "citations": [
+        "IS-01_Information_Security_Policy.pdf p.2 8. Backup and Recovery"
+      ]
+    },
+    {
+      "id": "Q10",
+      "answerable": true,
+      "correct": true,
+      "status": "answered",
+      "cited_expected": true,
+      "question": "Can I paste customer personal data into an AI chatbot?",
+      "answer": "No\u202f\u2013 you must not paste customer personal data into a generative AI tool unless a data\u2011protection impact assessment has specifically approved that use case [2].",
+      "top_score": 0.492,
+      "citations": [
+        "IT-04_Acceptable_Use_and_Generative_AI_Policy.pdf p.1 5. Data Classification and AI Tools"
+      ]
+    },
+    {
+      "id": "Q11",
+      "answerable": true,
+      "correct": true,
+      "status": "answered",
+      "cited_expected": true,
+      "question": "Which generative AI tools am I allowed to use with company information?",
+      "answer": "You may only use the generative AI tools that appear on the approved AI tools list on the intranet\u202f\u2014\u202fcurrently the enterprise chat assistant (covered by a data processing agreement) and the code assistant for software developers\u202f[1]. Public, free AI tools can be used only with information that is already public\u202f[1].",
+      "top_score": 0.739,
+      "citations": [
+        "IT-04_Acceptable_Use_and_Generative_AI_Policy.pdf p.1 4. Approved Generative AI Tools"
+      ]
+    },
+    {
+      "id": "Q12",
+      "answerable": true,
+      "correct": true,
+      "status": "answered",
+      "cited_expected": true,
+      "question": "Do images created with AI need to be labelled when we publish them?",
+      "answer": "Yes, any AI\u2011generated images that are published externally must be labelled as AI\u2011generated\u202f[1].",
+      "top_score": 0.65,
+      "citations": [
+        "IT-04_Acceptable_Use_and_Generative_AI_Policy.pdf p.1 6. Human Review and Labelling"
+      ]
+    },
+    {
+      "id": "Q13",
+      "answerable": true,
+      "correct": true,
+      "status": "answered",
+      "cited_expected": true,
+      "question": "Who has to approve a new AI use case?",
+      "answer": "The AI Governance Board must approve any new AI use case before development begins\u30101\u3011\u30102\u3011",
+      "top_score": 0.746,
+      "citations": [
+        "IT-04_Acceptable_Use_and_Generative_AI_Policy.pdf p.1 7. New AI Use Cases",
+        "IT-04_Acceptable_Use_and_Generative_AI_Policy.pdf p.2 7. New AI Use Cases"
+      ]
+    },
+    {
+      "id": "Q14",
+      "answerable": true,
+      "correct": true,
+      "status": "answered",
+      "cited_expected": true,
+      "question": "How long does the AI Governance Board take to decide on a request?",
+      "answer": "The AI Governance Board decides on complete requests within\u202f20\u202fworking days\u30101\u3011.",
+      "top_score": 0.549,
+      "citations": [
+        "IT-04_Acceptable_Use_and_Generative_AI_Policy.pdf p.2 7. New AI Use Cases"
+      ]
+    },
+    {
+      "id": "Q15",
+      "answerable": true,
+      "correct": true,
+      "status": "answered",
+      "cited_expected": true,
+      "question": "Can I set up automatic forwarding of my work email to my private account?",
+      "answer": "No, automatic forwarding of your work email to a private account is prohibited. [1]",
+      "top_score": 0.574,
+      "citations": [
+        "IT-04_Acceptable_Use_and_Generative_AI_Policy.pdf p.1 3. Email and Collaboration"
+      ]
+    },
+    {
+      "id": "Q16",
+      "answerable": true,
+      "correct": true,
+      "status": "answered",
+      "cited_expected": true,
+      "question": "How long do we keep the data of rejected job applicants?",
+      "answer": "Data of unsuccessful applicants is deleted 6\u202fmonths after the end of the application process, unless the applicant agreed to be kept in the talent pool, in which case it is retained for up to 2\u202fyears\u202f[1].",
+      "top_score": 0.607,
+      "citations": [
+        "DP-02_Data_Protection_and_Retention_Policy.pdf p.1 5. Retention Periods"
+      ]
+    },
+    {
+      "id": "Q17",
+      "answerable": true,
+      "correct": true,
+      "status": "answered",
+      "cited_expected": true,
+      "question": "How long must invoices be retained?",
+      "answer": "Invoices and accounting vouchers must be retained for 8\u202fyears [1].",
+      "top_score": 0.539,
+      "citations": [
+        "DP-02_Data_Protection_and_Retention_Policy.pdf p.1 5. Retention Periods"
+      ]
+    },
+    {
+      "id": "Q18",
+      "answerable": true,
+      "correct": true,
+      "status": "answered",
+      "cited_expected": true,
+      "question": "How long is CCTV footage kept?",
+      "answer": "CCTV recordings at the plant gates are retained for\u202f72\u202fhours, unless they are required for an incident investigation\u202f[1].",
+      "top_score": 0.463,
+      "citations": [
+        "DP-02_Data_Protection_and_Retention_Policy.pdf p.1 5. Retention Periods"
+      ]
+    },
+    {
+      "id": "Q19",
+      "answerable": true,
+      "correct": true,
+      "status": "answered",
+      "cited_expected": true,
+      "question": "Within what time do I have to report a personal data breach internally?",
+      "answer": "You must report a suspected personal data breach to the DPO and IT Security immediately and no later than 24\u202fhours after discovery\u30101\u3011.",
+      "top_score": 0.704,
+      "citations": [
+        "DP-02_Data_Protection_and_Retention_Policy.pdf p.2 8. Personal Data Breaches"
+      ]
+    },
+    {
+      "id": "Q20",
+      "answerable": true,
+      "correct": true,
+      "status": "answered",
+      "cited_expected": true,
+      "question": "How much time do we have to answer a data subject access request?",
+      "answer": "The company must provide its answer to a data subject access request within one month of receipt [1].",
+      "top_score": 0.561,
+      "citations": [
+        "DP-02_Data_Protection_and_Retention_Policy.pdf p.1 7. Data Subject Requests"
+      ]
+    },
+    {
+      "id": "Q21",
+      "answerable": true,
+      "correct": true,
+      "status": "answered",
+      "cited_expected": true,
+      "question": "What should I do if I think my laptop has ransomware?",
+      "answer": "If you suspect ransomware, disconnect the laptop from the network by unplugging the cable and turning off Wi\u2011Fi.\u202f[1]  \nDo not shut the computer down, as that can destroy evidence.\u202f[1]  \nImmediately call the security hotline (extension\u202f4444) or use the security mailbox to report the incident.\u202f[1][4]  \nIf you clicked a link or entered your password, report it right away and change your password.\u202f[1]",
+      "top_score": 0.722,
+      "citations": [
+        "IS-07_Incident_Response_Procedure.pdf p.1 4. First Steps for Employees",
+        "IS-07_Incident_Response_Procedure.pdf p.1 2. What to Report"
+      ]
+    },
+    {
+      "id": "Q22",
+      "answerable": true,
+      "correct": true,
+      "status": "answered",
+      "cited_expected": true,
+      "question": "How quickly do I have to report a lost laptop?",
+      "answer": "You must report a lost laptop within\u202f1\u202fhour of noticing the loss\u30101\u3011.",
+      "top_score": 0.51,
+      "citations": [
+        "IS-07_Incident_Response_Procedure.pdf p.1 2. What to Report"
+      ]
+    },
+    {
+      "id": "Q23",
+      "answerable": true,
+      "correct": true,
+      "status": "answered",
+      "cited_expected": true,
+      "question": "What is the response time for a P1 critical incident?",
+      "answer": "A P1 critical incident must be acknowledged within\u202f15\u202fminutes, 24\u202fhours a day. [1]",
+      "top_score": 0.754,
+      "citations": [
+        "IS-07_Incident_Response_Procedure.pdf p.1 3. Severity Levels and Response Times"
+      ]
+    },
+    {
+      "id": "Q24",
+      "answerable": true,
+      "correct": true,
+      "status": "answered",
+      "cited_expected": true,
+      "question": "When does the post-incident review take place?",
+      "answer": "A post\u2011incident review is held within\u202f5\u202fworking days after a P1 or P2 incident is closed\u30101\u3011.",
+      "top_score": 0.717,
+      "citations": [
+        "IS-07_Incident_Response_Procedure.pdf p.2 7. Post-Incident Review"
+      ]
+    },
+    {
+      "id": "Q25",
+      "answerable": true,
+      "correct": true,
+      "status": "answered",
+      "cited_expected": true,
+      "question": "When must we send an early warning to the BSI under NIS2?",
+      "answer": "An early warning to the BSI must be sent within\u202f24\u202fhours of becoming aware of the incident under the NIS2 directive [1].",
+      "top_score": 0.625,
+      "citations": [
+        "IS-07_Incident_Response_Procedure.pdf p.1 6. Communication and Reporting Obligations"
+      ]
+    },
+    {
+      "id": "N01",
+      "answerable": false,
+      "correct": true,
+      "status": "refused",
+      "cited_expected": null,
+      "question": "How many vacation days do employees get per year?",
+      "answer": "I could not find this in the loaded policies. Please check with the policy owner or the relevant department.",
+      "top_score": 0.28,
+      "citations": []
+    },
+    {
+      "id": "N02",
+      "answerable": false,
+      "correct": true,
+      "status": "refused",
+      "cited_expected": null,
+      "question": "What is the daily allowance for business travel?",
+      "answer": "I could not find this in the loaded policies. Please check with the policy owner or the relevant department.",
+      "top_score": 0.25,
+      "citations": []
+    },
+    {
+      "id": "N03",
+      "answerable": false,
+      "correct": true,
+      "status": "refused",
+      "cited_expected": null,
+      "question": "Which cloud provider hosts our ERP system?",
+      "answer": "I could not find this in the loaded policies. Please check with the policy owner or the relevant department.",
+      "top_score": 0.258,
+      "citations": []
+    },
+    {
+      "id": "N04",
+      "answerable": false,
+      "correct": true,
+      "status": "refused",
+      "cited_expected": null,
+      "question": "Can I bring my dog to the office?",
+      "answer": "I could not find this in the loaded policies. Please check with the policy owner or the relevant department.",
+      "top_score": 0.214,
+      "citations": []
+    },
+    {
+      "id": "N05",
+      "answerable": false,
+      "correct": true,
+      "status": "refused",
+      "cited_expected": null,
+      "question": "Which encryption standard does the guest Wi-Fi use?",
+      "answer": "I could not find this in the loaded policies. Please check with the policy owner or the relevant department.",
+      "top_score": 0.541,
+      "citations": []
+    },
+    {
+      "id": "N06",
+      "answerable": false,
+      "correct": true,
+      "status": "refused",
+      "cited_expected": null,
+      "question": "How long are video conference recordings kept?",
+      "answer": "I could not find this in the loaded policies. Please check with the policy owner or the relevant department.",
+      "top_score": 0.496,
+      "citations": []
+    },
+    {
+      "id": "N07",
+      "answerable": false,
+      "correct": true,
+      "status": "refused",
+      "cited_expected": null,
+      "question": "What is the name of our data protection officer?",
+      "answer": "I could not find this in the loaded policies. Please check with the policy owner or the relevant department.",
+      "top_score": 0.511,
+      "citations": []
+    },
+    {
+      "id": "N08",
+      "answerable": false,
+      "correct": true,
+      "status": "refused",
+      "cited_expected": null,
+      "question": "What is the budget for the security awareness training?",
+      "answer": "I could not find this in the loaded policies. Please check with the policy owner or the relevant department.",
+      "top_score": 0.435,
+      "citations": []
+    }
+  ]
+}

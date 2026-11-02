@@ -1,5 +1,4 @@
 langchain==0.3.7
-langchain-community==0.3.7
 langchain-chroma==0.1.4
 langchain-groq==0.2.1
 langchain-huggingface==0.1.2
@@ -7,3 +6,5 @@ chromadb==0.5.18
 sentence-transformers==3.3.1
 pypdf==5.1.0
 streamlit==1.40.2
+reportlab==4.2.5
+pytest==8.3.3
